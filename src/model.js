@@ -7,9 +7,9 @@ const fs = require('fs')
 const db = require('./mongo');
 
 
-let dal
+/*let dal
 
-/*if (!config.stateless) {
+if (!config.stateless) {
   dal = require('redis-async-wrapper');
   dal.init({url: config.redis, keyPrefix: config.name})
 }
