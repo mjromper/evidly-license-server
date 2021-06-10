@@ -10,15 +10,24 @@ class Handler {
   async handleLicense(req, res) {
     if (!utils.attrsNotNull(req.body, ['key', 'id'])) return res.json(errors.BAD_REQUEST)
     const {key, id:machine} = req.body
+    console.log(`Validating key: ${key}`)
+    console.log(`With machine: ${machine}`)
+
     const data = model.LicenseKey.validate(key)
     if (!data) {
       let response = errors.INVALID_INPUT
       response.msg = `Invalid License key: ${key}`
+
+      console.log(`Invalid License key: ${key}`)
+
       return res.json(response)
     }
 
     //if (!config.stateless) {
       const licenseKey = await model.LicenseKey.fetch(key)
+
+      console.log(`Key Data:`, licenseKey)
+
       if (!licenseKey || licenseKey.revoked == 1) {
         let response = errors.NULL_DATA
         response.msg = `Failed to check the license key in databases: ${key}`
@@ -42,12 +51,17 @@ class Handler {
       }
     //}
     const license = model.LicenseKey.generateLicense(key, machine)
+
+    console.log(`Key is VALID, corresponding License: ${license}`)
+    
     return res.json({status: errors.SUCCESS.status, statusMsg: errors.SUCCESS.statusMsg, license})
   }
 
   async issue(req, res) {
     let options = req.body || {}
+    console.log("Issueing a new Key for options", options)
     let key = await model.LicenseKey.issue(options)
+    console.log("New key issued: ", key)
     res.json(key);
   }
 
