@@ -11,7 +11,7 @@ const options = {
     useUnifiedTopology: true
 };
 
-console.log("--- MongoDB connecting... ", config.mongouri);
+//console.log("--- MongoDB connecting... ", config.mongouri);
 
 // Connect to DB
 mongoose.connect(config.mongouri, options);

@@ -22,9 +22,9 @@ const PrivateKey = {
   key: fs.readFileSync(config.rsa_private_key).toString(),
   passphrase: config.rsa_passphrase
 }
-console.log("PrivateKey", PrivateKey.key);
+//console.log("PrivateKey", PrivateKey.key);
 const PublicKey = fs.readFileSync(config.rsa_public_key).toString()
-console.log("PublicKey", PublicKey);
+//console.log("PublicKey", PublicKey);
 
 //const LicenseKey = dal? new dal.Redis_Hash({tpl: Formats.key}) : {}
 const LicenseKey = {}
