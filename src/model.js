@@ -59,12 +59,15 @@ LicenseKey.validate = (key) => {
     const _data = utils.crypt(PublicKey, buf, false)
     const data = JSON.parse(_data.toString('utf8'))
     if (data.identity === config.identity) {
-      if (data.persist == 1) return data
-      else if (data.startDate < Date.now() && data.endDate > Date.now()) return data
+      if (data.persist == 1) {
+        return data
+      } else if (data.startDate < Date.now() && data.endDate > Date.now()) {
+        return data
+      }
     }
-    console.info(`Encountered invalid key ${_data}`)
+    console.log(`WARNING! Encountered invalid key ${_data}`)
   } catch (e) {
-    console.error(e.toString())
+    console.log("Error", e.toString())
   }
 }
 

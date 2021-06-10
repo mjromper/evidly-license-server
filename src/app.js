@@ -19,7 +19,7 @@ app.get('/status', (req, res)=> res.json({status: 0}))
 app.use((req, res, next) => res.send("Not found: 404"))
 
 app.use((err, req, res, next) => {
-  console.error(err)
+  console.log("Error:", err)
   if (res.headerSent) return next(err)
   return res.send("500")
 });

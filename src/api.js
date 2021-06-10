@@ -23,10 +23,12 @@ class Handler {
       return res.json(response)
     }
 
+    console.log("Key Data:", data);
+
     //if (!config.stateless) {
       const licenseKey = await model.LicenseKey.fetch(key)
 
-      console.log(`Key Data:`, licenseKey)
+      console.log(`License Key:`, licenseKey)
 
       if (!licenseKey || licenseKey.revoked == 1) {
         let response = errors.NULL_DATA
@@ -35,7 +37,7 @@ class Handler {
           let revoked = (licenseKey.revoked == 1)? 1 : 0
           response.msg += `, revoked: ${revoked}`
         } 
-        console.error(response.msg)
+        console.log("Error:", response.msg)
         return res.json(response)
       }
       
@@ -46,7 +48,7 @@ class Handler {
       if (!success) {
         let response = errors.DUPLICATE_DATA
         response.msg = `Used key encountered: ${key}, machine: ${machine}`
-        console.error(response.msg)
+        console.log("Error:", response.msg)
         return res.json(response)
       }
     //}
