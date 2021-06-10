@@ -82,8 +82,8 @@ class Handler {
 
 const handler = new Handler
 
-router.post('/issuekey', handler.issue.bind(handler))
+router.post('/hidden/issuekey', handler.issue.bind(handler))
 router.post('/license', handler.handleLicense.bind(handler))
-router.post('/revoke', handler.revoke.bind(handler))
+router.post('/hidden/revoke', handler.revoke.bind(handler))
 
 module.exports = { router, handler }
