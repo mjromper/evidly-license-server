@@ -78,6 +78,18 @@ class Handler {
     }
     
   }
+
+  async decrypt(req, res) {
+    let body = req.body || {}
+    let key = body.key;
+    if (!key){
+      res.json(errors.INVALID_INPUT)
+    } else {
+      var response = await model.LicenseKey.decryptOnly(key)
+      res.json(response)
+    }
+    
+  }
 }
 
 const handler = new Handler
@@ -85,5 +97,6 @@ const handler = new Handler
 router.post('/hidden/issuekey', handler.issue.bind(handler))
 router.post('/license', handler.handleLicense.bind(handler))
 router.post('/hidden/revoke', handler.revoke.bind(handler))
+router.post('/hidden/decrypt', handler.decrypt.bind(handler))
 
 module.exports = { router, handler }

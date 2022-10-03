@@ -71,6 +71,17 @@ LicenseKey.validate = (key) => {
   }
 }
 
+LicenseKey.decryptOnly = (key) => {
+  const buf = Buffer.from(key, 'hex')
+  try {
+    const _data = utils.crypt(PublicKey, buf, false)
+    const data = JSON.parse(_data.toString('utf8'))
+    return data;
+  } catch (e) {
+    console.log("Error", e.toString())
+  }
+}
+
 LicenseKey.issue = async (options={}) => {
   const meta = {
     identity: config.identity || 'Software',
